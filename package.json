@@ -1,0 +1,36 @@
+{
+  "name": "alloybot",
+  "version": "0.0.0",
+  "description": "Alloybot",
+  "main": "./src/Alloybot.ts",
+  "scripts": {
+    "start": "node ./out/Alloybot.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Taylor Stapleton",
+  "license": "MIT",
+  "dependencies": {
+    "@types/mongodb": "^3.3.13",
+    "@types/node": "^12.12.18",
+    "@types/signale": "^1.2.1",
+    "discord.js": "^11.5.1",
+    "dotenv": "^8.2.0",
+    "mongodb": "^3.4.0",
+    "signale": "^1.4.0",
+    "ytdl-run": "^0.2.1"
+  },
+  "signale": {
+    "coloredInterpolation": false,
+    "displayScope": true,
+    "displayBadge": false,
+    "displayDate": false,
+    "displayFilename": false,
+    "displayLabel": true,
+    "displayTimestamp": false,
+    "underlineLabel": true,
+    "underlineMessage": false,
+    "underlinePrefix": false,
+    "underlineSuffix": false,
+    "uppercaseLabel": true
+  }
+}
