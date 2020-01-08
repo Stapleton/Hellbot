@@ -1,6 +1,6 @@
 import * as DJS from 'discord.js';
 import * as MDB from 'mongodb';
-import { MongoDB as MongoDBService } from '../../services/MongoDB';
+import { MongoDB as MongoDBService, COLLECTIONS } from '../../services/MongoDB';
 import { Musicbot } from '../Musicbot';
 import { Lib } from '../../lib/Lib';
 
@@ -13,7 +13,7 @@ export class Delete {
   constructor(Message: DJS.Message) {
     if (Lib.checkForVC(Message) == false) return;
 
-    this.coll = MongoDB.getCollection(Message.guild.id, 'musicbot');
+    this.coll = MongoDB.getCollection(Message.guild.id, COLLECTIONS.Musicbot);
     let id = Number(Message.content.split(' ')[1]);
 
     this.coll.deleteOne({ ID: id })

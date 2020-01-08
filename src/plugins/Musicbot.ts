@@ -26,10 +26,13 @@ export class Musicbot {
     let Discord = DiscordService.getInstance();
 
     Discord.on('message', MessageEvent => {
-      let token = MessageEvent.content.split(' ')[0];
-      let search = MessageEvent.content.split(' ')[1];
+      let split = MessageEvent.content.split(' ');
+      let args = {
+        token: split[0],
+        search: split[1]
+      }
 
-      switch (token) {
+      switch (args.token) {
         case '.join':
           new Join(MessageEvent);
           break;
@@ -43,7 +46,7 @@ export class Musicbot {
           break;
 
         case '.play':
-          if (typeof search != 'undefined') {
+          if (typeof args.search != 'undefined') {
             new Add(MessageEvent, false, true);
           } else {
             new Play(MessageEvent);

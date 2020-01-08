@@ -62,10 +62,18 @@ export class Lib {
   }
 
   // Quick util for checking if a user is connected to a voice channel in the same guild as the bot or not
-  public static checkForVC(Message: DJS.Message) {
+  public static checkForVC(Message: DJS.Message): boolean {
     if (!Message.author.client.voiceConnections.has(Message.guild.id)) {
-      Message.channel.send(`You must be connected to a voice channel to do that.`);
+      Message.channel.send(`**Don't degrade the champion at any time!** A man in my position could never afford to look ridiculous. __You understand that?__ Tell Tito Santana and tell Hulk Hogan that.`);
       return false;
+    }
+  }
+
+  public static checkForPerms(Message: DJS.Message, Permissions: DJS.PermissionResolvable): boolean {
+    let bool = Message.member.hasPermission(Permissions, false, true, true);
+    if (!bool) {
+      Message.channel.send(`*licks beard with tongue* You're talkin to the Intercontinental Heavyweight Champion of the world! **Yeaaahhhhh** You can't beat the Macho Man Randy Cabbage, even Hulk Hogan. I'm watchin' you.`);
+      return bool;
     }
   }
 }

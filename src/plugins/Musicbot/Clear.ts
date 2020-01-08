@@ -1,6 +1,6 @@
 import * as DJS from 'discord.js';
 import * as MDB from 'mongodb';
-import { MongoDB as MongoDBService } from '../../services/MongoDB';
+import { MongoDB as MongoDBService, COLLECTIONS } from '../../services/MongoDB';
 import { Musicbot } from '../Musicbot';
 
 const MongoDB = MongoDBService.getInstance();
@@ -10,7 +10,7 @@ export class Clear {
   private coll: MDB.Collection; // musicbot db collection
 
   constructor(Message: DJS.Message) {
-    this.coll = MongoDB.getCollection(Message.guild.id, 'musicbot');
+    this.coll = MongoDB.getCollection(Message.guild.id, COLLECTIONS.Musicbot);
 
     try {
       this.handleSuccess(Message, this.coll.find());

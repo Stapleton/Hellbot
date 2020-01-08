@@ -1,7 +1,7 @@
 import ytdlrun = require('ytdl-run');
 import * as DJS from 'discord.js';
 import * as MDB from 'mongodb';
-import { MongoDB as MongoDBService } from '../../services/MongoDB';
+import { MongoDB as MongoDBService, COLLECTIONS } from '../../services/MongoDB';
 import { Musicbot } from '../Musicbot';
 import { Song } from '../../lib/Song';
 import { Lib } from '../../lib/Lib';
@@ -31,7 +31,7 @@ export class Add {
     if (Lib.checkForVC(Message) == false) return;
     
     //this.LOGGER.debug(`Got Song`);
-    this.coll = MongoDB.getCollection(Message.guild.id, 'musicbot');
+    this.coll = MongoDB.getCollection(Message.guild.id, COLLECTIONS.Musicbot);
     this.Song.RequestedBy = Message.author.username;
   
     // search terms that can come after .play

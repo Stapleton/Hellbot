@@ -2,6 +2,12 @@ import * as MDB from 'mongodb';
 import { Signale } from 'signale';
 import * as Lang from '../lib/Lang';
 
+export enum COLLECTIONS {
+  Musicbot = 'musicbot',
+  RoleManager = 'roleman',
+  Moderation = 'moderation'
+}
+
 export class MongoDB extends MDB.MongoClient {
   private static instance: MongoDB;
 
