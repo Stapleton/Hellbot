@@ -1,6 +1,8 @@
+/** @format */
+
 export type SongID = string | number;
 
-export type Song =  {
+export type Song = {
   ID: SongID;
   URL: string;
   Search: string;
@@ -10,4 +12,4 @@ export type Song =  {
   Thumbnail: string;
   Channel: string;
   Playing: boolean;
-}
+};

@@ -1,12 +1,16 @@
-import * as DJS from 'discord.js';
-import { Musicbot } from '../Musicbot';
-import { Song } from '../../lib/Song';
+/** @format */
+
+import * as DJS from "discord.js";
+import { Signale } from "signale";
+
+import { Musicbot } from "@Plugins/Musicbot";
+import { Song } from "@Lib/Song";
 
 export class SongEmbed {
-  private LOGGER = Musicbot.getLogger();
+  private Logger: Signale = Musicbot.getLogger();
 
   constructor(Message: DJS.Message, Song: Song, Action: string) {
-    let embed = new DJS.RichEmbed();
+    let embed: DJS.RichEmbed = new DJS.RichEmbed();
 
     //embed.setAuthor(Message.client.user.username, Message.client.user.avatarURL);
     embed.setAuthor(`Requested by: ${Song.RequestedBy}`);
@@ -27,21 +31,21 @@ export class SongEmbed {
     }
   }
 
-  private handleSuccess(Embed: DJS.RichEmbed, Message: DJS.Message) {
+  private handleSuccess(Embed: DJS.RichEmbed, Message: DJS.Message): void {
     Message.channel.send(Embed);
   }
 
-  private handleError(Error: Error, Message: DJS.Message) {
+  private handleError(Error: Error, Message: DJS.Message): void {
     Message.channel.send(`Something went wrong. \`${Error.message}\``);
-    this.LOGGER.error(Error);
+    this.Logger.error(Error);
   }
 }
 
 export class QueueEmbed {
-  private LOGGER = Musicbot.getLogger();
+  private Logger: Signale = Musicbot.getLogger();
 
   constructor(Message: DJS.Message, Queue: object) {
-    let embed = new DJS.RichEmbed();
+    let embed: DJS.RichEmbed = new DJS.RichEmbed();
 
     embed.setAuthor("Queue List");
     embed.setColor("RANDOM");

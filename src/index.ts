@@ -1,13 +1,15 @@
+/** @format */
+
 // Configure environment variables
-require('dotenv').config({ path: 'private.env' });
+require("dotenv").config({ path: "private.env" });
 
 // Import all services and plugins
-import { Discord as DiscordService } from './services/Discord';
-import { MongoDB as MongoDBService } from './services/MongoDB';
-import { Moderation as ModerationPlugin } from './plugins/Moderation';
-import { Musicbot as MusicbotPlugin } from './plugins/Musicbot';
-import { RoleManager as RoleManagerPlugin } from './plugins/RoleManager';
-import { Lib as Library } from './lib/Lib';
+import { Discord as DiscordService } from "@Services/Discord";
+import { MongoDB as MongoDBService } from "@Services/MongoDB";
+import { Moderation as ModerationPlugin } from "@Plugins/Moderation";
+import { Musicbot as MusicbotPlugin } from "@Plugins/Musicbot";
+import { RoleManager as RoleManagerPlugin } from "@Plugins/RoleManager";
+import { Lib as Library } from "@Lib/Lib";
 
 // Initialize all services and plugins
 const Discord = DiscordService.getInstance();

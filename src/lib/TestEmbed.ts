@@ -1,10 +1,13 @@
-import * as DJS from 'discord.js';
-import * as MDB from 'mongodb';
-import { Lib as Library } from './Lib';
-import { Song } from './Song';
+/** @format */
+
+import * as DJS from "discord.js";
+import { Signale } from "signale";
+
+import { Lib as Library } from "@Lib/Lib";
+import { Song } from "@Lib/Song";
 
 export class TestEmbed {
-  private LOGGER = Library.getLogger();
+  private Logger: Signale = Library.getLogger();
 
   // Fake song object to test the embedding
   private Song: Song = {
@@ -14,15 +17,19 @@ export class TestEmbed {
     RequestedBy: "Whoever ran the command.",
     Length: "69:42:00",
     Name: "Is the safe done?",
-    Thumbnail: "https://cdn.discordapp.com/attachments/595858296385175552/653684368354705408/circle_game-1.jpg",
+    Thumbnail:
+      "https://cdn.discordapp.com/attachments/595858296385175552/653684368354705408/circle_game-1.jpg",
     Channel: ":Pog:",
-    Playing: false
-  }
+    Playing: false,
+  };
 
   constructor(Message: DJS.Message) {
-    let embed = new DJS.RichEmbed();
+    let embed: DJS.RichEmbed = new DJS.RichEmbed();
 
-    embed.setAuthor(Message.client.user.username, Message.client.user.avatarURL);
+    embed.setAuthor(
+      Message.client.user.username,
+      Message.client.user.avatarURL
+    );
     embed.setColor("RANDOM");
     embed.setURL(this.Song.URL);
     embed.setTitle(this.Song.Name);
@@ -39,12 +46,12 @@ export class TestEmbed {
     }
   }
 
-  private handleSuccess(Embed: DJS.RichEmbed, Message: DJS.Message) {
+  private handleSuccess(Embed: DJS.RichEmbed, Message: DJS.Message): void {
     Message.channel.send(Embed);
   }
 
-  private handleError(Error: Error, Message: DJS.Message) {
+  private handleError(Error: Error, Message: DJS.Message): void {
     Message.channel.send(`Something went wrong. \`${Error.message}\``);
-    this.LOGGER.error(Error);
+    this.Logger.error(Error);
   }
 }

@@ -1,12 +1,15 @@
-import ytdlrun = require('ytdl-run');
-import * as DJS from 'discord.js';
-import * as MDB from 'mongodb';
-import { Discord as DiscordService } from '../../services/Discord';
-import { MongoDB as MongoDBService, COLLECTIONS } from '../../services/MongoDB';
-import { Musicbot } from '../Musicbot';
-import { SongEmbed as Embed } from './Embed';
-import { Join } from './Join';
-import { Lib } from '../../lib/Lib';
+/** @format */
+
+const ytdlrun = require("ytdl-run");
+import { Signale } from "signale";
+import * as DJS from "discord.js";
+import * as MDB from "mongodb";
+
+import { MongoDB as MongoDBService, COLLECTIONS } from "@Services/MongoDB";
+import { SongEmbed as Embed } from "@Lib/SongEmbed";
+import { Musicbot } from "@Plugins/Musicbot";
+import { Join } from "@Services/Discord";
+import { Lib } from "@Lib/Lib";
 
 const MongoDB = MongoDBService.getInstance();
 
@@ -14,8 +17,8 @@ const MongoDB = MongoDBService.getInstance();
 // TODO: Make the command more reliable when its in a voice channel
 // TODO: Links arent reliable
 export class Play {
-  private LOGGER = Musicbot.getLogger();
-  private coll;
+  private Logger: Signale = Musicbot.getLogger();
+  private coll: MDB.Collection;
 
   constructor(Message: DJS.Message) {
     if (Lib.checkForVC(Message) == false) return;
@@ -23,12 +26,16 @@ export class Play {
     this.coll = MongoDB.getCollection(Message.guild.id, COLLECTIONS.Musicbot);
     if (!Message.guild.voiceConnection) new Join(Message);
 
-    this.coll.findOneAndDelete({ Playing: false })
-    .then(result => this.handleSuccess(result, Message))
-    .catch(error => this.handleError(error, Message));
+    this.coll
+      .findOneAndDelete({ Playing: false })
+      .then(result => this.handleSuccess(result, Message))
+      .catch(error => this.handleError(error, Message));
   }
 
-  private handleSuccess(Result: MDB.FindAndModifyWriteOpResultObject, Message: DJS.Message) {
+  private handleSuccess(
+    Result: MDB.FindAndModifyWriteOpResultObject,
+    Message: DJS.Message
+  ): void {
     if (Result.value == null) {
       Message.channel.send(`End of Queue`);
       return;
@@ -38,16 +45,20 @@ export class Play {
 
     const Stream = ytdlrun.stream(Result.value.URL).stdout;
 
-    Message.guild.voiceConnection.playStream(Stream, { passes: 1, volume: 0.3, bitrate: "auto" });
-    Message.guild.voiceConnection.dispatcher.once('end', () => {
+    Message.guild.voiceConnection.playStream(Stream, {
+      passes: 1,
+      volume: 0.3,
+      bitrate: "auto",
+    });
+    Message.guild.voiceConnection.dispatcher.once("end", () => {
       new Play(Message);
     });
-    
-    new Embed(Message, Result.value, 'Playing');
+
+    new Embed(Message, Result.value, "Playing");
   }
 
-  private handleError(Error: MDB.MongoError, Message: DJS.Message) {
+  private handleError(Error: MDB.MongoError, Message: DJS.Message): void {
     Message.channel.send(`Something went wrong. \`${Error.message}\``);
-    this.LOGGER.error(Error);
+    this.Logger.error(Error);
   }
 }

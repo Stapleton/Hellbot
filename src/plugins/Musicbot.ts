@@ -1,80 +1,87 @@
-import { Discord as DiscordService } from '../services/Discord';
-import * as Lang from '../lib/Lang';
+/** @format */
 
-import { Signale } from 'signale';
+import { Signale } from "signale";
+import * as DJS from "discord.js";
 
-import { Join } from './Musicbot/Join';
-import { Leave } from './Musicbot/Leave';
-import { Add } from './Musicbot/Add';
-import { Play } from './Musicbot/Play'
-import { Stop } from './Musicbot/Stop'
-import { Pause } from './Musicbot/Pause'
-import { Resume } from './Musicbot/Resume'
-import { Volume } from './Musicbot/Volume'
-import { Delete } from './Musicbot/Delete'
+import { Discord as DiscordService } from "@Services/Discord";
+import * as Lang from "@Lib/Lang";
+
+import { Join } from "@Services/Discord";
+import { Leave } from "@Services/Discord";
+import { Stop } from "@Services/Discord";
+import { Volume } from "@Services/Discord";
+import { Pause } from "@Services/Discord";
+import { Resume } from "@Services/Discord";
+
+import { Add } from "@Plugins/Musicbot/Add";
+import { Clear } from "@Plugins/Musicbot/Clear";
+import { Delete } from "@Plugins/Musicbot/Delete";
+import { Play } from "@Plugins/Musicbot/Play";
+import { Repeat } from "@Plugins/Musicbot/Repeat";
+import { Shuffle } from "@Plugins/Musicbot/Shuffle";
 
 export class Musicbot {
   private static instance: Musicbot;
 
-  protected static LOGGER = new Signale({
-    scope: Musicbot.name
+  protected static Logger: Signale = new Signale({
+    scope: Musicbot.name,
   });
-  
+
   private constructor() {
-    Musicbot.LOGGER.success(`${Lang.INIT_PLUGIN} ${Musicbot.name}`);
+    Musicbot.Logger.success(`${Lang.INIT_PLUGIN} ${Musicbot.name}`);
 
-    let Discord = DiscordService.getInstance();
+    let Discord: DJS.Client = DiscordService.getInstance();
 
-    Discord.on('message', MessageEvent => {
-      let split = MessageEvent.content.split(' ');
-      let args = {
+    Discord.on("message", (MessageEvent: DJS.Message) => {
+      let split: string[] = MessageEvent.content.split(" ");
+      let args: { [key: string]: string } = {
         token: split[0],
-        search: split[1]
-      }
+        search: split[1],
+      };
 
       switch (args.token) {
-        case '.join':
+        case ".join":
           new Join(MessageEvent);
           break;
-        
-        case '.leave':
+
+        case ".leave":
           new Leave(MessageEvent);
           break;
 
-        case '.add':
+        case ".add":
           new Add(MessageEvent);
           break;
 
-        case '.play':
-          if (typeof args.search != 'undefined') {
+        case ".play":
+          if (typeof args.search != "undefined") {
             new Add(MessageEvent, false, true);
           } else {
             new Play(MessageEvent);
           }
           break;
 
-        case '.stop':
+        case ".stop":
           new Stop(MessageEvent);
           break;
 
-        case '.pause':
+        case ".pause":
           new Pause(MessageEvent);
           break;
 
-        case '.resume':
+        case ".resume":
           new Resume(MessageEvent);
           break;
 
-        case '.skip':
+        case ".skip":
           new Stop(MessageEvent);
           new Play(MessageEvent);
           break;
 
-        case '.volume':
+        case ".volume":
           new Volume(MessageEvent);
           break;
 
-        case '.del':
+        case ".del":
           new Delete(MessageEvent);
           break;
       }
@@ -90,6 +97,6 @@ export class Musicbot {
   }
 
   public static getLogger(): Signale {
-    return Musicbot.LOGGER;
+    return Musicbot.Logger;
   }
 }

@@ -10,11 +10,9 @@
     "declarationDir": "./typings/",
     "forceConsistentCasingInFileNames": true,
     "outDir": "./out/",
-    "resolveJsonModule": true,
     "sourceMap": true,
-    "sourceRoot": "./src/",
     "types": ["signale", "node", "mongodb"],
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
       "@Services/*": ["src/services/*"],
       "@Plugins/*": ["src/plugins/*"],

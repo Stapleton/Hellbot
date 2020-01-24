@@ -1,10 +1,10 @@
 {
-  "name": "alloybot",
+  "name": "hellbot",
   "version": "0.0.0",
-  "description": "Alloybot",
-  "main": "./src/Alloybot.ts",
+  "description": "Bruh",
+  "main": "./src/index.ts",
   "scripts": {
-    "start": "node ./out/Alloybot.js",
+    "start": "ts-node -r tsconfig-paths/register .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Taylor Stapleton",
@@ -17,6 +17,10 @@
     "dotenv": "^8.2.0",
     "mongodb": "^3.4.0",
     "signale": "^1.4.0",
+    "ts-node": "^8.6.2",
+    "tsconfig-paths": "^3.9.0",
+    "tts-cli": "^1.8.0",
+    "typescript": "^3.7.4",
     "ytdl-run": "^0.2.1"
   },
   "signale": {
@@ -32,5 +36,15 @@
     "underlinePrefix": false,
     "underlineSuffix": false,
     "uppercaseLabel": true
+  },
+  "devDependencies": {
+    "husky": "^4.0.1",
+    "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }

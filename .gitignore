@@ -87,3 +87,9 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
+# Google API Auth
+*.p12
+
+# Build Output
+out/**

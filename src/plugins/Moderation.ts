@@ -1,18 +1,18 @@
-import { Discord as DiscordService } from '../services/Discord';
-import { MongoDB as MongoDBService } from '../services/MongoDB';
-import * as Lang from '../lib/Lang';
+/** @format */
 
-import { Signale } from 'signale';
+import * as Lang from "@Lib/Lang";
+
+import { Signale } from "signale";
 
 export class Moderation {
   private static instance: Moderation;
 
-  protected static LOGGER = new Signale({
-    scope: Moderation.name
+  protected static Logger: Signale = new Signale({
+    scope: Moderation.name,
   });
-  
+
   private constructor() {
-    Moderation.LOGGER.success(`${Lang.INIT_PLUGIN} ${Moderation.name}`);
+    Moderation.Logger.success(`${Lang.INIT_PLUGIN} ${Moderation.name}`);
   }
 
   public static getInstance(): Moderation {

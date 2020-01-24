@@ -1,22 +1,31 @@
-import { Discord as DiscordService } from '../services/Discord';
-import * as Lang from '../lib/Lang';
+/** @format */
 
-import { Signale } from 'signale';
+import { Signale } from "signale";
+
+import { Discord as DiscordService } from "@Services/Discord";
+import { Link } from "@Plugins/RoleManager/Link";
+import * as Lang from "@Lib/Lang";
 
 export class RoleManager {
   private static instance: RoleManager;
 
-  protected static LOGGER = new Signale({
-    scope: RoleManager.name
+  protected static Logger: Signale = new Signale({
+    scope: RoleManager.name,
   });
-  
+
   private constructor() {
-    RoleManager.LOGGER.success(`${Lang.INIT_PLUGIN} ${RoleManager.name}`);
+    RoleManager.Logger.success(`${Lang.INIT_PLUGIN} ${RoleManager.name}`);
 
     let Discord = DiscordService.getInstance();
 
-    Discord.on('message', MessageEvent => {
-      let split = MessageEvent.content.split(' ')[0];
+    Discord.on("message", MessageEvent => {
+      let token = MessageEvent.content.split(" ")[0];
+
+      switch (token) {
+        case ".link":
+          new Link(MessageEvent);
+          break;
+      }
     });
   }
 
@@ -29,6 +38,6 @@ export class RoleManager {
   }
 
   public static getLogger(): Signale {
-    return RoleManager.LOGGER;
+    return RoleManager.Logger;
   }
 }
