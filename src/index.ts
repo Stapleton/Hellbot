@@ -4,19 +4,33 @@
 require("dotenv").config({ path: "private.env" });
 
 // Import all services and plugins
-import { Discord as DiscordService } from "@Services/Discord";
-import { MongoDB as MongoDBService } from "@Services/MongoDB";
+import { TextToSpeech as TextToSpeechPlugin } from "@Plugins/TextToSpeech";
+import { RoleManager as RoleManagerPlugin } from "@Plugins/RoleManager";
 import { Moderation as ModerationPlugin } from "@Plugins/Moderation";
 import { Musicbot as MusicbotPlugin } from "@Plugins/Musicbot";
-import { RoleManager as RoleManagerPlugin } from "@Plugins/RoleManager";
-import { Lib as Library } from "@Lib/Lib";
+import { Discord as DiscordService } from "@Services/Discord";
+import { MongoDB as MongoDBService } from "@Services/MongoDB";
+import * as Prototypes from "@Lib/Prototypes";
+//import { Lib as Library } from "@Lib/Lib";
 
 // Initialize all services and plugins
-const Discord = DiscordService.getInstance();
-const MongoDB = MongoDBService.getInstance();
+const TextToSpeech = TextToSpeechPlugin.getInstance();
+const RoleManager = RoleManagerPlugin.getInstance();
 const Moderation = ModerationPlugin.getInstance();
 const Musicbot = MusicbotPlugin.getInstance();
-const RoleManager = RoleManagerPlugin.getInstance();
-const Lib = Library.getInstance();
+const Discord = DiscordService.getInstance();
+const MongoDB = MongoDBService.getInstance();
+//const Lib = Library.getInstance();
 
 // TODO: Make a help module
+
+// Setup Prototypes
+declare global {
+  interface Array<T> {
+    shuffle(): Array<T>;
+  }
+}
+
+Array.prototype.shuffle = function() {
+  return Prototypes.ArrayProtoShuffle(this);
+};

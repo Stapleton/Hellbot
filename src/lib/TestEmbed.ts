@@ -3,11 +3,12 @@
 import * as DJS from "discord.js";
 import { Signale } from "signale";
 
-import { Lib as Library } from "@Lib/Lib";
+import * as Lang from "@Lib/Lang";
 import { Song } from "@Lib/Song";
+import { Lib } from "@Lib/Lib";
 
 export class TestEmbed {
-  private Logger: Signale = Library.getLogger();
+  private Logger: Signale = Lib.getLogger();
 
   // Fake song object to test the embedding
   private Song: Song = {
@@ -51,7 +52,7 @@ export class TestEmbed {
   }
 
   private handleError(Error: Error, Message: DJS.Message): void {
-    Message.channel.send(`Something went wrong. \`${Error.message}\``);
+    Message.channel.send(`${Lang.ERROR_MSG} \`${Error.message}\``);
     this.Logger.error(Error);
   }
 }

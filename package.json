@@ -5,22 +5,24 @@
   "main": "./src/index.ts",
   "scripts": {
     "start": "ts-node -r tsconfig-paths/register .",
+    "prettier": "prettier --config ./.prettierrc --write src/**",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Taylor Stapleton",
   "license": "MIT",
   "dependencies": {
-    "@types/mongodb": "^3.3.13",
-    "@types/node": "^12.12.18",
+    "@types/mongodb": "^3.3.15",
+    "@types/node": "^12.12.26",
     "@types/signale": "^1.2.1",
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0",
-    "mongodb": "^3.4.0",
+    "mongodb": "^3.5.2",
+    "node-opus": "^0.3.3",
     "signale": "^1.4.0",
     "ts-node": "^8.6.2",
     "tsconfig-paths": "^3.9.0",
     "tts-cli": "^1.8.0",
-    "typescript": "^3.7.4",
+    "typescript": "^3.7.5",
     "ytdl-run": "^0.2.1"
   },
   "signale": {
@@ -38,7 +40,7 @@
     "uppercaseLabel": true
   },
   "devDependencies": {
-    "husky": "^4.0.1",
+    "husky": "^4.2.1",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1"
   },

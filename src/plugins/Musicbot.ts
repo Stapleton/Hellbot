@@ -6,12 +6,12 @@ import * as DJS from "discord.js";
 import { Discord as DiscordService } from "@Services/Discord";
 import * as Lang from "@Lib/Lang";
 
-import { Join } from "@Services/Discord";
-import { Leave } from "@Services/Discord";
-import { Stop } from "@Services/Discord";
-import { Volume } from "@Services/Discord";
-import { Pause } from "@Services/Discord";
-import { Resume } from "@Services/Discord";
+import { Join } from "@Services/Discord/Join";
+import { Leave } from "@Services/Discord/Leave";
+import { Stop } from "@Services/Discord/Stop";
+import { Volume } from "@Services/Discord/Volume";
+import { Pause } from "@Services/Discord/Pause";
+import { Resume } from "@Services/Discord/Resume";
 
 import { Add } from "@Plugins/Musicbot/Add";
 import { Clear } from "@Plugins/Musicbot/Clear";
@@ -83,6 +83,15 @@ export class Musicbot {
 
         case ".del":
           new Delete(MessageEvent);
+          break;
+
+        case ".clear":
+          new Clear(MessageEvent);
+          break;
+
+        case ".shuffle":
+        case ".repeat":
+          MessageEvent.channel.send(`Not Yet Implemented.`);
           break;
       }
     });

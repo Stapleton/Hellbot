@@ -9,10 +9,12 @@ import { MongoDB as MongoDBService, COLLECTIONS } from "@Services/MongoDB";
 import { SongEmbed as Embed } from "@Lib/SongEmbed";
 import { Play } from "@Plugins/Musicbot/Play";
 import { Musicbot } from "@Plugins/Musicbot";
+import { CheckForVC } from "@Lib/CheckForVC";
+import { ConvertMin } from "@Lib/ConvertMin";
+import * as Lang from "@Lib/Lang";
 import { Song } from "@Lib/Song";
-import { Lib } from "@Lib/Lib";
 
-// get the singleton instance for MongoDB
+// * get the singleton instance for MongoDB
 const MongoDB = MongoDBService.getInstance();
 
 export class Add {
@@ -37,17 +39,17 @@ export class Add {
     embed: boolean = true,
     play: boolean = false
   ) {
-    if (Lib.checkForVC(Message) == false) return;
+    if (CheckForVC(Message) === false) return;
 
-    //this.Logger.debug(`Got Song`);
+    // this.Logger.debug(`Got Song`);
     this.coll = MongoDB.getCollection(Message.guild.id, COLLECTIONS.Musicbot);
     this.Song.RequestedBy = Message.author.username;
 
-    // search terms that can come after .play
+    // * search terms that can come after .play
     let search: string = Message.content.split(" ")[1];
 
-    // if there are no search terms, play the songs in the queue
-    // if there are search terms, get the info from the terms, and run the routine {Join, Add, Play}
+    // * if there are no search terms, play the songs in the queue
+    // * if there are search terms, get the info from the terms, and run the routine {Join, Add, Play}
     if (typeof search === "undefined") {
       this.addSong(Message, embed, play);
     } else {
@@ -61,7 +63,7 @@ export class Add {
         .catch(error => this.handleError(error, Message));
     }
 
-    //Message.channel.send(`\`\`\`json\n${JSON.stringify(this.Song)}\`\`\``);
+    // Message.channel.send(`\`\`\`json\n${JSON.stringify(this.Song)}\`\`\``);
   }
 
   private handleSuccess(
@@ -70,7 +72,7 @@ export class Add {
     embed: boolean,
     play: boolean
   ): void {
-    this.Song.Length = Lib.convertMin(Info.duration);
+    this.Song.Length = ConvertMin(Info.duration);
     this.Song.Name = Info.title;
     this.Song.Thumbnail = Info.thumbnail;
     this.Song.Channel = Info.uploader;
@@ -79,7 +81,7 @@ export class Add {
   }
 
   private handleError(Error: Error, Message: DJS.Message): void {
-    Message.channel.send(`Something went wrong. \`${Error.message}\``);
+    Message.channel.send(`${Lang.ERROR_MSG} \`${Error.message}\``);
     this.Logger.error(Error);
   }
 
@@ -87,7 +89,7 @@ export class Add {
     this.Song.ID = Math.floor(Math.random() * 1000);
 
     this.coll.insertOne(this.Song);
-    //this.Logger.debug(`Added Song`);
+    // this.Logger.debug(`Added Song`);
 
     if (embed) new Embed(Message, this.Song, "Added");
     if (play) new Play(Message);

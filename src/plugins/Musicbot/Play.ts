@@ -7,9 +7,10 @@ import * as MDB from "mongodb";
 
 import { MongoDB as MongoDBService, COLLECTIONS } from "@Services/MongoDB";
 import { SongEmbed as Embed } from "@Lib/SongEmbed";
+import { Join } from "@Services/Discord/Join";
 import { Musicbot } from "@Plugins/Musicbot";
-import { Join } from "@Services/Discord";
-import { Lib } from "@Lib/Lib";
+import * as Lang from "@Lib/Lang";
+import { CheckForVC } from "@Lib/CheckForVC";
 
 const MongoDB = MongoDBService.getInstance();
 
@@ -21,7 +22,7 @@ export class Play {
   private coll: MDB.Collection;
 
   constructor(Message: DJS.Message) {
-    if (Lib.checkForVC(Message) == false) return;
+    if (CheckForVC(Message) == false) return;
 
     this.coll = MongoDB.getCollection(Message.guild.id, COLLECTIONS.Musicbot);
     if (!Message.guild.voiceConnection) new Join(Message);
@@ -33,15 +34,15 @@ export class Play {
   }
 
   private handleSuccess(
-    Result: MDB.FindAndModifyWriteOpResultObject,
+    Result: MDB.FindAndModifyWriteOpResultObject<any>,
     Message: DJS.Message
   ): void {
     if (Result.value == null) {
       Message.channel.send(`End of Queue`);
       return;
     }
-    //if (Result.value == null) Message.channel.send(`Something went wrong. \`Play.ts#handleSuccess // Result.value == null\``)
-    //if (Result.ok != 1) Message.channel.send(`Something went wrong. \`Play.ts#handleSuccess // Result.ok != 1\``);
+    //if (Result.value == null) Message.channel.send(`${Lang.ERROR_MSG} \`Play.ts#handleSuccess // Result.value == null\``)
+    //if (Result.ok != 1) Message.channel.send(`${Lang.ERROR_MSG} \`Play.ts#handleSuccess // Result.ok != 1\``);
 
     const Stream = ytdlrun.stream(Result.value.URL).stdout;
 
@@ -58,7 +59,7 @@ export class Play {
   }
 
   private handleError(Error: MDB.MongoError, Message: DJS.Message): void {
-    Message.channel.send(`Something went wrong. \`${Error.message}\``);
+    Message.channel.send(`${Lang.ERROR_MSG} \`${Error.message}\``);
     this.Logger.error(Error);
   }
 }

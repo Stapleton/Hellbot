@@ -6,7 +6,8 @@ import * as MDB from "mongodb";
 
 import { MongoDB as MongoDBService, COLLECTIONS } from "@Services/MongoDB";
 import { RoleManager } from "@Plugins/RoleManager";
-import { Lib } from "@Lib/Lib";
+import * as Lang from "@Lib/Lang";
+import { CheckForPerms } from "@Lib/CheckForPerms";
 
 const MongoDB = MongoDBService.getInstance();
 
@@ -15,7 +16,7 @@ export class Link {
   private coll: MDB.Collection;
 
   constructor(Message: DJS.Message) {
-    let allowed: boolean = Lib.checkForPerms(Message, "MANAGE_ROLES");
+    let allowed: boolean = CheckForPerms(Message, "MANAGE_ROLES");
     if (!allowed) return;
 
     this.coll = MongoDB.getCollection(
@@ -41,13 +42,13 @@ export class Link {
 
   private handleSuccess<T>(
     Message: DJS.Message,
-    Success: MDB.InsertOneWriteOpResult<T>
+    Success: MDB.InsertOneWriteOpResult<any>
   ): void {
     Message.channel.send(`*Mmmmm. Yeaahhhh*`);
   }
 
   private handleError(Error: Error, Message: DJS.Message): void {
-    Message.channel.send(`Something went wrong. \`${Error.message}\``);
+    Message.channel.send(`${Lang.ERROR_MSG} \`${Error.message}\``);
     this.Logger.error(Error);
   }
 }

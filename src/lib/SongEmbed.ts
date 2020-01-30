@@ -4,6 +4,7 @@ import * as DJS from "discord.js";
 import { Signale } from "signale";
 
 import { Musicbot } from "@Plugins/Musicbot";
+import * as Lang from "@Lib/Lang";
 import { Song } from "@Lib/Song";
 
 export class SongEmbed {
@@ -36,7 +37,7 @@ export class SongEmbed {
   }
 
   private handleError(Error: Error, Message: DJS.Message): void {
-    Message.channel.send(`Something went wrong. \`${Error.message}\``);
+    Message.channel.send(`${Lang.ERROR_MSG} \`${Error.message}\``);
     this.Logger.error(Error);
   }
 }

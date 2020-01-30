@@ -6,7 +6,8 @@ import * as MDB from "mongodb";
 
 import { MongoDB as MongoDBService, COLLECTIONS } from "@Services/MongoDB";
 import { Musicbot } from "@Plugins/Musicbot";
-import { Lib } from "@Lib/Lib";
+import * as Lang from "@Lib/Lang";
+import { CheckForVC } from "@Lib/CheckForVC";
 
 const MongoDB = MongoDBService.getInstance();
 
@@ -15,7 +16,7 @@ export class Delete {
   private coll: MDB.Collection; // musicbot db collection
 
   constructor(Message: DJS.Message) {
-    if (Lib.checkForVC(Message) == false) return;
+    if (CheckForVC(Message) == false) return;
 
     this.coll = MongoDB.getCollection(Message.guild.id, COLLECTIONS.Musicbot);
     let id = Number(Message.content.split(" ")[1]);
@@ -27,11 +28,11 @@ export class Delete {
   }
 
   private handleSuccess(SongID: number, Message: DJS.Message): void {
-    Message.channel.send(`Removed song`);
+    Message.channel.send(`Removed song.`);
   }
 
   private handleError(Error: Error, Message: DJS.Message): void {
-    Message.channel.send(`Something went wrong. \`${Error.message}\``);
+    Message.channel.send(`${Lang.ERROR_MSG} \`${Error.message}\``);
     this.Logger.error(Error);
   }
 }
