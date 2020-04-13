@@ -28,7 +28,6 @@ export class Volume {
         return;
       }
       try {
-        // TODO: Modified volume level should persist between audio streams instead of defaulting when a new song starts
         Message.guild.voiceConnection.dispatcher.setVolumeDecibels(Number(vol));
         this.handleSuccess(Message);
       } catch (e) {

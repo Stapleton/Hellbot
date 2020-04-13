@@ -31,15 +31,15 @@ export class TextToSpeech {
     });
   }
 
+  public static getLogger(): Signale {
+    return TextToSpeech.Logger;
+  }
+
   public static getInstance(): TextToSpeech {
     if (!TextToSpeech.instance) {
       TextToSpeech.instance = new TextToSpeech();
     }
 
     return TextToSpeech.instance;
-  }
-
-  public static getLogger(): Signale {
-    return TextToSpeech.Logger;
   }
 }

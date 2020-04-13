@@ -4,7 +4,7 @@ import * as DJS from "discord.js";
 import { Signale } from "signale";
 
 import * as Lang from "@Lib/Lang";
-import { Song } from "@Lib/Song";
+import { Song } from "@Lib/Types";
 import { Lib } from "@Lib/Lib";
 
 export class TestEmbed {

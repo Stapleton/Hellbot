@@ -16,7 +16,8 @@
     "paths": {
       "@Services/*": ["src/services/*"],
       "@Plugins/*": ["src/plugins/*"],
-      "@Lib/*": ["src/lib/*"]
+      "@Lib/*": ["src/lib/*"],
+      "@Config/*": ["config/*"]
     }
   },
   "include": ["src/**/*"]

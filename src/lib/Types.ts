@@ -13,3 +13,9 @@ export type Song = {
   Channel: string;
   Playing: boolean;
 };
+
+export type QueueItem = {
+  Name: string;
+  Length: string;
+  ID: SongID;
+};

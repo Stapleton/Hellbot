@@ -10,6 +10,7 @@ import { Moderation as ModerationPlugin } from "@Plugins/Moderation";
 import { Musicbot as MusicbotPlugin } from "@Plugins/Musicbot";
 import { Discord as DiscordService } from "@Services/Discord";
 import { MongoDB as MongoDBService } from "@Services/MongoDB";
+import { Twitch as TwitchService } from "@Services/Twitch";
 import * as Prototypes from "@Lib/Prototypes";
 //import { Lib as Library } from "@Lib/Lib";
 
@@ -20,9 +21,8 @@ const Moderation = ModerationPlugin.getInstance();
 const Musicbot = MusicbotPlugin.getInstance();
 const Discord = DiscordService.getInstance();
 const MongoDB = MongoDBService.getInstance();
+const Twitch = TwitchService.getInstance();
 //const Lib = Library.getInstance();
-
-// TODO: Make a help module
 
 // Setup Prototypes
 declare global {

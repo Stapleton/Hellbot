@@ -6,7 +6,7 @@ import * as DJS from "discord.js";
 import * as MDB from "mongodb";
 
 import { MongoDB as MongoDBService, COLLECTIONS } from "@Services/MongoDB";
-import { SongEmbed as Embed } from "@Lib/SongEmbed";
+import { SongEmbed as Embed } from "@Lib/Embed";
 import { Join } from "@Services/Discord/Join";
 import { Musicbot } from "@Plugins/Musicbot";
 import * as Lang from "@Lib/Lang";
@@ -14,9 +14,6 @@ import { CheckForVC } from "@Lib/CheckForVC";
 
 const MongoDB = MongoDBService.getInstance();
 
-// TODO: Be more expressive on whether or not the command worked
-// TODO: Make the command more reliable when its in a voice channel
-// TODO: Links arent reliable
 export class Play {
   private Logger: Signale = Musicbot.getLogger();
   private coll: MDB.Collection;
@@ -41,8 +38,6 @@ export class Play {
       Message.channel.send(`End of Queue`);
       return;
     }
-    //if (Result.value == null) Message.channel.send(`${Lang.ERROR_MSG} \`Play.ts#handleSuccess // Result.value == null\``)
-    //if (Result.ok != 1) Message.channel.send(`${Lang.ERROR_MSG} \`Play.ts#handleSuccess // Result.ok != 1\``);
 
     const Stream = ytdlrun.stream(Result.value.URL).stdout;
 

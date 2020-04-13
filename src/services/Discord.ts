@@ -16,11 +16,11 @@ export class Discord extends DJS.Client {
   private constructor() {
     super();
     this.login(process.env.DISCORD);
-    this.on("ready", this.handleConnect);
+    this.on("ready", this.handleSuccess);
     this.on("error", this.handleError);
   }
 
-  private handleConnect(): void {
+  private handleSuccess(): void {
     return Discord.Logger.success(`${Lang.INIT_SERVICE} ${Discord.name}`);
   }
 
@@ -39,4 +39,6 @@ export class Discord extends DJS.Client {
 
     return Discord.instance;
   }
+
+  public static Join(Message: DJS.Message): void {}
 }

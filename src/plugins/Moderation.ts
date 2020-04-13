@@ -15,6 +15,10 @@ export class Moderation {
     Moderation.Logger.success(`${Lang.INIT_PLUGIN} ${Moderation.name}`);
   }
 
+  public static getLogger(): Signale {
+    return Moderation.Logger;
+  }
+
   public static getInstance(): Moderation {
     if (!Moderation.instance) {
       Moderation.instance = new Moderation();

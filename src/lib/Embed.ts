@@ -5,7 +5,7 @@ import { Signale } from "signale";
 
 import { Musicbot } from "@Plugins/Musicbot";
 import * as Lang from "@Lib/Lang";
-import { Song } from "@Lib/Song";
+import { Song, QueueItem } from "@Lib/Types";
 
 export class SongEmbed {
   private Logger: Signale = Musicbot.getLogger();
@@ -45,11 +45,29 @@ export class SongEmbed {
 export class QueueEmbed {
   private Logger: Signale = Musicbot.getLogger();
 
-  constructor(Message: DJS.Message, Queue: object) {
+  constructor(Message: DJS.Message, Queue?: QueueItem[]) {
     let embed: DJS.RichEmbed = new DJS.RichEmbed();
 
     embed.setAuthor("Queue List");
     embed.setColor("RANDOM");
-    // TODO: Finish Queue List Embed
+
+    Queue.forEach(Item => {
+      embed.addField(Item.Name, `${Item.Length} // ${Item.ID}`, true);
+    });
+
+    try {
+      this.handleSuccess(embed, Message);
+    } catch (error) {
+      this.handleError(error, Message);
+    }
+  }
+
+  private handleSuccess(Embed: DJS.RichEmbed, Message: DJS.Message): void {
+    Message.channel.send(Embed);
+  }
+
+  private handleError(Error: Error, Message: DJS.Message): void {
+    Message.channel.send(`${Lang.ERROR_MSG} \`${Error.message}\``);
+    this.Logger.error(Error);
   }
 }

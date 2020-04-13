@@ -30,15 +30,15 @@ export class Lib {
     });
   }
 
+  public static getLogger(): Signale {
+    return this.Logger;
+  }
+
   public static getInstance(): Lib {
     if (!Lib.instance) {
       Lib.instance = new Lib();
     }
 
     return Lib.instance;
-  }
-
-  public static getLogger(): Signale {
-    return this.Logger;
   }
 }

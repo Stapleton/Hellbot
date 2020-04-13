@@ -4,6 +4,7 @@ import { Signale } from "signale";
 import * as DJS from "discord.js";
 
 import { Discord as DiscordService } from "@Services/Discord";
+import { QueueEmbed } from "@Lib/Embed";
 import * as Lang from "@Lib/Lang";
 
 import { Join } from "@Services/Discord/Join";
@@ -89,6 +90,9 @@ export class Musicbot {
           new Clear(MessageEvent);
           break;
 
+        case ".queue":
+          new QueueEmbed(MessageEvent);
+
         case ".shuffle":
         case ".repeat":
           MessageEvent.channel.send(`Not Yet Implemented.`);
@@ -97,15 +101,15 @@ export class Musicbot {
     });
   }
 
+  public static getLogger(): Signale {
+    return Musicbot.Logger;
+  }
+
   public static getInstance(): Musicbot {
     if (!Musicbot.instance) {
       Musicbot.instance = new Musicbot();
     }
 
     return Musicbot.instance;
-  }
-
-  public static getLogger(): Signale {
-    return Musicbot.Logger;
   }
 }

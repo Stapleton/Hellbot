@@ -6,13 +6,13 @@ import * as DJS from "discord.js";
 import * as MDB from "mongodb";
 
 import { MongoDB as MongoDBService, COLLECTIONS } from "@Services/MongoDB";
-import { SongEmbed as Embed } from "@Lib/SongEmbed";
+import { SongEmbed as Embed } from "@Lib/Embed";
 import { Play } from "@Plugins/Musicbot/Play";
 import { Musicbot } from "@Plugins/Musicbot";
 import { CheckForVC } from "@Lib/CheckForVC";
 import { ConvertMin } from "@Lib/ConvertMin";
 import * as Lang from "@Lib/Lang";
-import { Song } from "@Lib/Song";
+import { Song } from "@Lib/Types";
 
 // * get the singleton instance for MongoDB
 const MongoDB = MongoDBService.getInstance();

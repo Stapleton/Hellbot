@@ -29,15 +29,15 @@ export class RoleManager {
     });
   }
 
+  public static getLogger(): Signale {
+    return RoleManager.Logger;
+  }
+
   public static getInstance(): RoleManager {
     if (!RoleManager.instance) {
       RoleManager.instance = new RoleManager();
     }
 
     return RoleManager.instance;
-  }
-
-  public static getLogger(): Signale {
-    return RoleManager.Logger;
   }
 }

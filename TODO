@@ -1,0 +1,57 @@
+Bugs:
+  + src/plugins/Musicbot/Play.ts @low
+    ☐ Reliability issues
+      Be more expressive on whether or not the command worked
+      make the command more reliable when its in a voice channel
+      .play link - not reliable, does not work all the time
+  + src/plugins/Musicbot/Volume.ts @low
+    ☐ Non-Consistent volume level
+      If the volume is modified during a stream
+      when the stream ends and a new one starts
+      the volume resets. This should only reset
+      when the bot leaves the voice channel.
+
+In Progress:
+  + src/plugins/Config*
+    ☐ Implement a config system
+      Make it so there is a file exists check
+      If it exists then do the fs op
+      If it doesnt exist then create any missing dirs/files
+      All configs will be done in TOML
+      Make a default config for the bot 'Hellbot.toml'
+  + src/services/Discord*
+    ☐ Refactor
+      Add wrapper methods to Discord.ts for
+      Join, Leave, Pause, Resume, Stop, and Volume
+      Rather than importing each one separately
+      just import 'Services/Discord' and you have them all
+  + src/services/Twitch*
+    ☐ Auth Submodule
+      Need authorization to use the module
+
+Planned:
+  + src/plugins/Musicbot/intro.ts => src/plugins/TextToSpeech
+    ☐ Implement a Text To Speech feature
+      'tts-cli' is the text to speech synth package I am using
+      tts-cli needs to be executed as a child process
+      using gcp for the tts api
+    ☐ !intro
+      the bot will join the voice chat of whoever ran the command
+      and will say "First name: Tiger. Last name: Games." and then wait
+      If there is music in the queue, it will start playing after
+      otherwise it will wait for a command
+  + src/plugins
+    ☐ Help module
+      Make a metadata system for defining all the info about the command
+      Each command module could have their layout changed so that there is the
+      main class and then there is an extra metadata class that when called
+      returns a metadata object about the command
+  + src/services/Auth
+    ☐ Make a proper authentication system
+      No more .env file full of passwords and API keys
+      Make a proper and user friendly auth experience
+  + Electron 
+    ☐ Consider making this into an electron app
+      It would be neat to see it have a centralized version of the bot running for public use
+      but if people want to do their own standalone set up
+      they can download the bot as an electron app with the regular public webpanel as the app

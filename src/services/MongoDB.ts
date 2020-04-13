@@ -33,16 +33,20 @@ export class MongoDB extends MDB.MongoClient {
     });
 
     this.connect()
-      .then(this.handleConnect)
+      .then(this.handleSuccess)
       .catch(this.handleError);
   }
 
-  private handleConnect(): void {
+  private handleSuccess(): void {
     return MongoDB.Logger.success(`${Lang.INIT_SERVICE} ${MongoDB.name}`);
   }
 
   private handleError<T>(error: T): void {
     return MongoDB.Logger.error(error);
+  }
+
+  public static getLogger(): Signale {
+    return MongoDB.Logger;
   }
 
   public static getInstance(): MongoDB {
