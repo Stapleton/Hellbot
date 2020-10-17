@@ -1,28 +1,27 @@
 /** @format */
 
-import * as DJS from "discord.js";
 import { Signale } from "signale";
+import * as DJS from "discord.js";
 
 import { Discord as DiscordService } from "@Services/Discord";
+import { Utils } from "@Plugins/Utils";
 import * as Lang from "@Lib/Lang";
-import { CheckForVC } from "@Lib/CheckForVC";
 
-export class Resume {
-  private Logger: Signale = DiscordService.getLogger();
+export class ServerDeafen {
+  private Logger: Signale = Utils.getLogger();
 
   constructor(Message: DJS.Message) {
-    if (CheckForVC(Message) == false) return;
-
+    let state: DJS.VoiceState = Message.member.voice;
     try {
-      Message.member.voice.connection.dispatcher.resume();
+      state.serverDeaf ? state.setDeaf(false) : state.setDeaf(true);
       this.handleSuccess(Message);
     } catch (e) {
       this.handleError(e, Message);
     }
   }
 
-  private handleSuccess(Message: DJS.Message): void {
-    Message.channel.send(`Paused`);
+  private async handleSuccess(Message: DJS.Message): Promise<void> {
+    Message.react(":ok_hand:").catch(e => this.handleError(e, Message));
   }
 
   private handleError(Error: Error, Message: DJS.Message): void {

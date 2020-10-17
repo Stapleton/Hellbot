@@ -14,7 +14,7 @@ export class Leave {
     if (CheckForVC(Message) == false) return;
 
     try {
-      Message.client.voiceConnections.get(Message.guild.id).disconnect();
+      Message.member.voice.channel.leave();
       this.handleSuccess(Message);
     } catch (error) {
       this.handleError(error, Message);

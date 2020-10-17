@@ -11,7 +11,7 @@ export class SongEmbed {
   private Logger: Signale = Musicbot.getLogger();
 
   constructor(Message: DJS.Message, Song: Song, Action: string) {
-    let embed: DJS.RichEmbed = new DJS.RichEmbed();
+    let embed: DJS.MessageEmbed = new DJS.MessageEmbed();
 
     //embed.setAuthor(Message.client.user.username, Message.client.user.avatarURL);
     embed.setAuthor(`Requested by: ${Song.RequestedBy}`);
@@ -32,7 +32,7 @@ export class SongEmbed {
     }
   }
 
-  private handleSuccess(Embed: DJS.RichEmbed, Message: DJS.Message): void {
+  private handleSuccess(Embed: DJS.MessageEmbed, Message: DJS.Message): void {
     Message.channel.send(Embed);
   }
 
@@ -46,7 +46,7 @@ export class QueueEmbed {
   private Logger: Signale = Musicbot.getLogger();
 
   constructor(Message: DJS.Message, Queue?: QueueItem[]) {
-    let embed: DJS.RichEmbed = new DJS.RichEmbed();
+    let embed: DJS.MessageEmbed = new DJS.MessageEmbed();
 
     embed.setAuthor("Queue List");
     embed.setColor("RANDOM");
@@ -62,7 +62,7 @@ export class QueueEmbed {
     }
   }
 
-  private handleSuccess(Embed: DJS.RichEmbed, Message: DJS.Message): void {
+  private handleSuccess(Embed: DJS.MessageEmbed, Message: DJS.Message): void {
     Message.channel.send(Embed);
   }
 

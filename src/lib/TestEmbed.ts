@@ -25,11 +25,11 @@ export class TestEmbed {
   };
 
   constructor(Message: DJS.Message) {
-    let embed: DJS.RichEmbed = new DJS.RichEmbed();
+    let embed: DJS.MessageEmbed = new DJS.MessageEmbed();
 
     embed.setAuthor(
       Message.client.user.username,
-      Message.client.user.avatarURL
+      Message.client.user.avatarURL()
     );
     embed.setColor("RANDOM");
     embed.setURL(this.Song.URL);
@@ -47,7 +47,7 @@ export class TestEmbed {
     }
   }
 
-  private handleSuccess(Embed: DJS.RichEmbed, Message: DJS.Message): void {
+  private handleSuccess(Embed: DJS.MessageEmbed, Message: DJS.Message): void {
     Message.channel.send(Embed);
   }
 

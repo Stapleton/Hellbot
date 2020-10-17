@@ -39,6 +39,4 @@ export class Discord extends DJS.Client {
 
     return Discord.instance;
   }
-
-  public static Join(Message: DJS.Message): void {}
 }

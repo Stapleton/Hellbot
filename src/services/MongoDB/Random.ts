@@ -16,7 +16,7 @@ export class Random {
     }
     let doc = cur.next();
     doc["random"] = Math.random();
-    collection.update({ _id: doc["_id"] }, doc);
+    collection.updateMany({ _id: doc["_id"] }, doc);
     return doc;
   }
 }

@@ -16,7 +16,7 @@ export class Volume {
     let vol = Message.content.split(" ")[1];
     if (typeof vol === "undefined") {
       Message.channel.send(
-        `Current Volume: ${Message.guild.voiceConnection.dispatcher.volumeDecibels
+        `Current Volume: ${Message.member.voice.connection.dispatcher.volumeDecibels
           .toString()
           .substr(0, 5)}dB`
       );
@@ -28,7 +28,9 @@ export class Volume {
         return;
       }
       try {
-        Message.guild.voiceConnection.dispatcher.setVolumeDecibels(Number(vol));
+        Message.member.voice.connection.dispatcher.setVolumeDecibels(
+          Number(vol)
+        );
         this.handleSuccess(Message);
       } catch (e) {
         this.handleError(e, Message);
@@ -38,7 +40,7 @@ export class Volume {
 
   private handleSuccess(Message: DJS.Message): void {
     Message.channel.send(
-      `Volume set to ${Message.guild.voiceConnection.dispatcher.volumeDecibels
+      `Volume set to ${Message.member.voice.connection.dispatcher.volumeDecibels
         .toString()
         .substr(0, 5)}dB`
     );

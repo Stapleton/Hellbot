@@ -42,6 +42,7 @@ export class Musicbot {
 
       switch (args.token) {
         case ".join":
+          Musicbot.Logger.info(`.join called`);
           new Join(MessageEvent);
           break;
 

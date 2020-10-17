@@ -14,10 +14,9 @@ export class Join {
     if (CheckForVC(Message) == false) return;
 
     // Return if already connected to a voice channel
-    if (Message.guild.voiceConnection) return;
-    Message.guild
-      .member(Message.author)
-      .voiceChannel.join()
+    if (Message.member.voice) return;
+    Message.member.voice.channel
+      .join()
       .then(() => this.handleSuccess(Message))
       .catch(error => this.handleError(error, Message));
   }

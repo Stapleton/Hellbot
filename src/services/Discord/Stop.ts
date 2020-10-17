@@ -14,7 +14,7 @@ export class Stop {
     if (CheckForVC(Message) == false) return;
 
     try {
-      Message.guild.voiceConnection.dispatcher.end();
+      Message.member.voice.connection.dispatcher.end();
       this.handleSuccess(Message);
     } catch (e) {
       this.handleError(e, Message);

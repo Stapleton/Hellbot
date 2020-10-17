@@ -24,10 +24,10 @@ export class GetProfilePic {
     if (Message.mentions.users.size > 0) {
       let first = Message.mentions.users.first();
       Result.username = first.username;
-      Result.imglink = first.avatarURL;
+      Result.imglink = first.avatarURL();
     } else {
       Result.username = Message.author.username;
-      Result.imglink = Message.author.avatarURL;
+      Result.imglink = Message.author.avatarURL();
     }
 
     try {

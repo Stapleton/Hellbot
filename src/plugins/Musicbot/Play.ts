@@ -22,7 +22,7 @@ export class Play {
     if (CheckForVC(Message) == false) return;
 
     this.coll = MongoDB.getCollection(Message.guild.id, COLLECTIONS.Musicbot);
-    if (!Message.guild.voiceConnection) new Join(Message);
+    if (!Message.member.voice.connection) new Join(Message);
 
     this.coll
       .findOneAndDelete({ Playing: false })
@@ -41,12 +41,12 @@ export class Play {
 
     const Stream = ytdlrun.stream(Result.value.URL).stdout;
 
-    Message.guild.voiceConnection.playStream(Stream, {
-      passes: 1,
+    Message.member.voice.connection.play(Stream, {
       volume: 0.3,
       bitrate: "auto",
+      fec: true,
     });
-    Message.guild.voiceConnection.dispatcher.once("end", () => {
+    Message.member.voice.connection.dispatcher.once("end", () => {
       new Play(Message);
     });
 

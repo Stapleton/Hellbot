@@ -58,7 +58,7 @@ export class Add {
         .slice(1)
         .join(" ");
       ytdlrun
-        .getInfo(["--default-search", "ytsearch", this.Song.Search])
+        .getInfo(["--default-search", "ytsearch", `"${this.Song.Search}"`])
         .then(info => this.handleSuccess(info, Message, embed, play))
         .catch(error => this.handleError(error, Message));
     }

@@ -14,7 +14,7 @@ export class Pause {
     if (CheckForVC(Message) == false) return;
 
     try {
-      Message.guild.voiceConnection.dispatcher.pause();
+      Message.member.voice.connection.dispatcher.pause();
       this.handleSuccess(Message);
     } catch (e) {
       this.handleError(e, Message);

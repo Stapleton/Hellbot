@@ -6,6 +6,7 @@ import { Discord as DiscordService } from "@Services/Discord";
 import * as Lang from "@Lib/Lang";
 
 import { GetProfilePic } from "@Plugins/Utils/GetProfilePic";
+import { ServerDeafen } from "@Plugins/Utils/ServerDeafen";
 
 export class Utils {
   private static instance: Utils;
@@ -29,6 +30,9 @@ export class Utils {
       switch (args.token) {
         case ".getProfilePic":
           new GetProfilePic(MessageEvent);
+          break;
+        case ".deaf":
+          new ServerDeafen(MessageEvent);
           break;
       }
     });
