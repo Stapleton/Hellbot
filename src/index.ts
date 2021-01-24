@@ -3,6 +3,12 @@
 // Configure environment variables
 require("dotenv").config({ path: "private.env" });
 
+// Import logger for stdout formatting
+import { Signale } from "signale";
+const logger = new Signale({
+  scope: "stdout",
+});
+
 // Import all services and plugins
 import { TextToSpeech as TextToSpeechPlugin } from "@Plugins/TextToSpeech";
 import { RoleManager as RoleManagerPlugin } from "@Plugins/RoleManager";
@@ -39,3 +45,7 @@ declare global {
 Array.prototype.shuffle = function() {
   return Prototypes.ArrayProtoShuffle(this);
 };
+
+Discord.on("message", (message) => {
+  if (message.author.id === Discord.user.id) return;
+});

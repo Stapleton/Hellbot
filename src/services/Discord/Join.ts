@@ -7,6 +7,8 @@ import { Discord as DiscordService } from "@Services/Discord";
 import * as Lang from "@Lib/Lang";
 import { CheckForVC } from "@Lib/CheckForVC";
 
+const Discord = DiscordService.getInstance();
+
 export class Join {
   private Logger: Signale = DiscordService.getLogger();
 
@@ -14,7 +16,8 @@ export class Join {
     if (CheckForVC(Message) == false) return;
 
     // Return if already connected to a voice channel
-    if (Message.member.voice) return;
+    if (Discord.voice.connections.has(Message.guild.id) === true) return;
+
     Message.member.voice.channel
       .join()
       .then(() => this.handleSuccess(Message))

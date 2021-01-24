@@ -2,8 +2,10 @@
 
 import * as DJS from "discord.js";
 import { Signale } from "signale";
+import chalk from "chalk";
 
 import * as Lang from "@Lib/Lang";
+import { GetChannelNameFromGuild } from "@Lib/GetChannelNameFromGuild";
 
 export class Discord extends DJS.Client {
   private static instance: Discord;
@@ -18,6 +20,15 @@ export class Discord extends DJS.Client {
     this.login(process.env.DISCORD);
     this.on("ready", this.handleSuccess);
     this.on("error", this.handleError);
+    this.on("message", (message) => {
+      if (!message.content.startsWith(".")) return;
+      Discord.Logger.scope("@");
+      Discord.Logger.info(
+        chalk.yellow`[${message.guild.name}] ${message.author.username} 
+        ${message.guild.channels.resolveID(message.channel.id)}: ${message.content}`
+      );
+      Discord.Logger.unscope();
+    });
   }
 
   private handleSuccess(): void {

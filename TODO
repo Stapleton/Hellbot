@@ -1,6 +1,6 @@
 Bugs:
   + src/plugins/Musicbot/Play.ts @low
-    ☐ Reliability issues
+    ✔ Reliability issues @done(21-01-21 19:38)
       Be more expressive on whether or not the command worked
       make the command more reliable when its in a voice channel
       .play link - not reliable, does not work all the time
@@ -54,7 +54,7 @@ Planned:
     ☐ Make a proper authentication system
       No more .env file full of passwords and API keys
       Make a proper and user friendly auth experience
-  + Electron 
+  + Electron => app/
     ☐ Consider making this into an electron app
       It would be neat to see it have a centralized version of the bot running for public use
       but if people want to do their own standalone set up
@@ -66,3 +66,10 @@ Planned:
       "Database Service" and the helper will use and manage which ever database is set to be used in the config
       SQLite support will be good for a standalone setup by default
       with the choice to use MongoDB if the user wants
+  + src/plugins/CLUI
+    ☐ Create a command line UI
+      Put a yellow circle next to initializing modules
+      Put a green circle next to successfully loaded modules
+      Put a red circle next to errored modules
+      Show CPU and RAM usage
+      Show a log of bot interations

@@ -1,18 +1,6 @@
 {
+  "extends": "./tsconfig.defaults.json",
   "compilerOptions": {
-    "lib": ["esnext"],
-    "target": "esnext",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "declaration": true,
-    "declarationDir": "./typings/",
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "./out/",
-    "sourceMap": true,
-    "types": ["signale", "node", "mongodb"],
-    "baseUrl": ".",
     "paths": {
       "@Services/*": ["src/services/*"],
       "@Plugins/*": ["src/plugins/*"],
@@ -20,5 +8,8 @@
       "@Config/*": ["config/*"]
     }
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "references": [
+    { "path": "./app", }
+  ]
 }

@@ -7,6 +7,7 @@ import * as Lang from "@Lib/Lang";
 
 import { GetProfilePic } from "@Plugins/Utils/GetProfilePic";
 import { ServerDeafen } from "@Plugins/Utils/ServerDeafen";
+import { TestEvents } from "@Plugins/Utils/TestEvents";
 
 export class Utils {
   private static instance: Utils;
@@ -20,7 +21,7 @@ export class Utils {
 
     let Discord = DiscordService.getInstance();
 
-    Discord.on("message", MessageEvent => {
+    Discord.on("message", (MessageEvent) => {
       let split = MessageEvent.content.split(" ");
       let args: { [key: string]: string } = {
         token: split[0],
@@ -33,6 +34,9 @@ export class Utils {
           break;
         case ".deaf":
           new ServerDeafen(MessageEvent);
+          break;
+        case ".testevent":
+          new TestEvents(MessageEvent);
           break;
       }
     });

@@ -1,6 +1,6 @@
 /** @format */
 
-export function ArrayProtoShuffle(array) {
+export function ArrayProtoShuffle(array: any[]) {
   let currentIndex = array.length,
     temporaryValue,
     randomIndex;

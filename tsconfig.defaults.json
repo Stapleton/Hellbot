@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "declaration": true,
+    "declarationDir": "./typings",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "outDir": "./out/",
+    "sourceMap": true,
+    "target": "ESNext",
+    "types": ["signale", "node", "mongodb"]
+  }
+}

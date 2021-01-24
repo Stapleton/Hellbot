@@ -28,7 +28,6 @@ export class MongoDB extends MDB.MongoClient {
       },
       appname: "Hellbot",
       useNewUrlParser: true,
-      forceServerObjectId: true,
       useUnifiedTopology: true,
     });
 

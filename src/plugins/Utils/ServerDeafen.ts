@@ -20,8 +20,8 @@ export class ServerDeafen {
     }
   }
 
-  private async handleSuccess(Message: DJS.Message): Promise<void> {
-    Message.react(":ok_hand:").catch(e => this.handleError(e, Message));
+  private handleSuccess(Message: DJS.Message): void {
+    Message.react("802828660381450270").catch((e) => this.handleError(e, Message));
   }
 
   private handleError(Error: Error, Message: DJS.Message): void {

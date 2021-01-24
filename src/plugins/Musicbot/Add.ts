@@ -1,9 +1,10 @@
 /** @format */
 
-const ytdlrun = require("ytdl-run");
+import * as ytdl from "ytdl-core";
 import { Signale } from "signale";
 import * as DJS from "discord.js";
 import * as MDB from "mongodb";
+import * as ytsr from "ytsr";
 
 import { MongoDB as MongoDBService, COLLECTIONS } from "@Services/MongoDB";
 import { SongEmbed as Embed } from "@Lib/Embed";
@@ -28,20 +29,15 @@ export class Add {
     RequestedBy: "Whoever ran the command.",
     Length: "69:42:00",
     Name: "Is the safe done?",
-    Thumbnail:
-      "https://cdn.discordapp.com/attachments/595858296385175552/653684368354705408/circle_game-1.jpg",
+    Thumbnail: "https://cdn.discordapp.com/attachments/595858296385175552/653684368354705408/circle_game-1.jpg",
     Channel: ":Pog:",
     Playing: false,
   };
 
-  constructor(
-    Message: DJS.Message,
-    embed: boolean = true,
-    play: boolean = false
-  ) {
+  constructor(Message: DJS.Message, embed: boolean = true, play: boolean = false) {
     if (CheckForVC(Message) === false) return;
 
-    // this.Logger.debug(`Got Song`);
+    // * Get MongoDB Collection
     this.coll = MongoDB.getCollection(Message.guild.id, COLLECTIONS.Musicbot);
     this.Song.RequestedBy = Message.author.username;
 
@@ -57,8 +53,8 @@ export class Add {
         .split(" ")
         .slice(1)
         .join(" ");
-      ytdlrun
-        .getInfo(["--default-search", "ytsearch", `"${this.Song.Search}"`])
+      ytdl
+        .getInfo(`"${this.Song.Search}"`)
         .then(info => this.handleSuccess(info, Message, embed, play))
         .catch(error => this.handleError(error, Message));
     }
@@ -66,17 +62,12 @@ export class Add {
     // Message.channel.send(`\`\`\`json\n${JSON.stringify(this.Song)}\`\`\``);
   }
 
-  private handleSuccess(
-    Info: { [key: string]: any },
-    Message: DJS.Message,
-    embed: boolean,
-    play: boolean
-  ): void {
-    this.Song.Length = ConvertMin(Info.duration);
-    this.Song.Name = Info.title;
-    this.Song.Thumbnail = Info.thumbnail;
-    this.Song.Channel = Info.uploader;
-    this.Song.URL = Info.webpage_url;
+  private handleSuccess(Info: ytdl.videoInfo, Message: DJS.Message, embed: boolean, play: boolean): void {
+    this.Song.Length = ConvertMin(Info.videoDetails.lengthSeconds);
+    this.Song.Name = Info.videoDetails.title;
+    this.Song.Thumbnail = Info.thumbnail_url;
+    this.Song.Channel = Info.videoDetails.ownerChannelName;
+    this.Song.URL = Info.videoDetails.video_url;
     this.addSong(Message, embed, play);
   }
 
