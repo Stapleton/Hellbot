@@ -29,8 +29,6 @@ export class Musicbot {
   });
 
   private constructor() {
-    Musicbot.Logger.success(`${Lang.INIT_PLUGIN} ${Musicbot.name}`);
-
     let Discord: DJS.Client = DiscordService.getInstance();
 
     Discord.on("message", (MessageEvent: DJS.Message) => {
@@ -100,6 +98,8 @@ export class Musicbot {
           break;
       }
     });
+
+    Musicbot.Logger.success(`${Lang.INIT_PLUGIN} ${Musicbot.name}`);
   }
 
   public static getLogger(): Signale {

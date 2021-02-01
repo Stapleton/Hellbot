@@ -3,6 +3,7 @@
     "baseUrl": ".",
     "declaration": true,
     "declarationDir": "./typings",
+    "downlevelIteration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
@@ -12,6 +13,6 @@
     "outDir": "./out/",
     "sourceMap": true,
     "target": "ESNext",
-    "types": ["signale", "node", "mongodb"]
+    "types": ["signale", "node", "mongodb", "jsonfile", "dom-parser"]
   }
 }

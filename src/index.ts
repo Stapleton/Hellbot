@@ -11,6 +11,7 @@ const logger = new Signale({
 
 // Import all services and plugins
 import { TextToSpeech as TextToSpeechPlugin } from "@Plugins/TextToSpeech";
+import { JewValidator as JewValidatorPlugin } from "@Plugins/JewValidator";
 import { RoleManager as RoleManagerPlugin } from "@Plugins/RoleManager";
 import { Moderation as ModerationPlugin } from "@Plugins/Moderation";
 import { Musicbot as MusicbotPlugin } from "@Plugins/Musicbot";
@@ -23,6 +24,7 @@ import * as Prototypes from "@Lib/Prototypes";
 //import { Lib as Library } from "@Lib/Lib";
 
 // Initialize all services and plugins
+const JewValidator = JewValidatorPlugin.getInstance();
 const TextToSpeech = TextToSpeechPlugin.getInstance();
 const RoleManager = RoleManagerPlugin.getInstance();
 const Moderation = ModerationPlugin.getInstance();
