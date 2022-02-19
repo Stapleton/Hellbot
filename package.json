@@ -26,7 +26,7 @@
     "hellbot-electron": "file:app",
     "jsonfile": "^6.1.0",
     "mongodb": "^3.5.2",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.1.1",
     "node-opus": "^0.3.3",
     "signale": "^1.4.0",
     "toml": "^3.0.0",
